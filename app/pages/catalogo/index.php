@@ -3,7 +3,7 @@
 include("../../session.php");
 include("../../DATABASE.php");
 //Paginación
-$resultados_por_pagina = 10;
+$resultados_por_pagina = 8;
 
 // Obtener el número total de filas en la tabla 'producto'
 $total_resultados = $CONEXION->prepare("SELECT COUNT(*) FROM producto");
@@ -119,7 +119,9 @@ if (count($Productos) > 0) {
     <div class="p-16 grid grid-cols-4 gap-x-4 gap-y-12 h-full ">
         <?php foreach ($Productos as $Producto) { ?>
             <div class="max-w-96 h-[35em]  rounded-lg shadow-lg overflow-hidden <?php echo ($Producto['oferta'] == 1) ? "bg-orange-400" : "bg-white"; ?>">
-                <img class="w-full h-68 object-cover object-center rounded-lg" src="<?php echo ($URL_IMG . $Producto['Img']); ?>" alt="Imagen del producto">
+                <div class="bg-white flex justify-center w-full h-[22em] overflow-hidden">
+                    <img class="object-cover object-center rounded-lg" src="<?php echo ($URL_IMG . $Producto['Img']); ?>" alt="Imagen del producto">
+                </div>
                 <div class="p-4">
                     <h2 class="text-xl font-semibold text-gray-800 text-center"><?php echo ($Producto['Nombre'] . " - " . $Producto['cantidad']) ?></h2>
                     <p class="px-4 text-center mt-2 mb-8">

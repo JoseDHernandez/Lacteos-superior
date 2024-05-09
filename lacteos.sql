@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-05-2024 a las 04:48:26
+-- Tiempo de generación: 09-05-2024 a las 18:58:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -61,7 +61,12 @@ CREATE TABLE `categoria` (
 
 INSERT INTO `categoria` (`Id`, `nombre`, `descripcion`) VALUES
 (1, 'Lácteos', 'Productos derivados de la leche'),
-(3, 'Quesos', 'Variedad de quesos de diferentes países');
+(3, 'Quesos', 'Variedad de quesos de diferentes países'),
+(5, 'Yogurt', 'Yogures de leche entera'),
+(6, 'Chiquigurt', 'Yogures para los pequeños placeres'),
+(7, 'Cereal', 'Cereal'),
+(8, 'Gelatina', 'Galatina'),
+(9, 'Lonchera', 'Lonchera');
 
 -- --------------------------------------------------------
 
@@ -83,10 +88,7 @@ CREATE TABLE `comentario` (
 --
 
 INSERT INTO `comentario` (`Id`, `fk_producto`, `fk_cliente`, `mensaje`, `calificacion`, `tiempo`) VALUES
-(1, 1, 1, 'Es un buen yogur', 4.0, '2024-05-06'),
-(2, 1, 1, 'Es un buen yogur', 5.0, '2024-05-03'),
-(3, 1, 1, 'Es un buen yogur', 5.0, '2024-05-06'),
-(4, 1, 1, 'No me gusto mucho su sabor', 2.4, '2024-05-06');
+(5, 11, 4, 'Un sabor muy rico', 4.5, '2024-05-09');
 
 -- --------------------------------------------------------
 
@@ -102,6 +104,18 @@ CREATE TABLE `compra` (
   `cantidad` int(11) NOT NULL,
   `valor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`Id`, `fk_cliente`, `fk_producto`, `fk_pedido`, `cantidad`, `valor`) VALUES
+(11, 4, 11, 6, 3, 21000),
+(12, 4, 12, 6, 1, 2850),
+(13, 4, 20, 6, 7, 3000),
+(14, 4, 22, 6, 1, 2700),
+(15, 4, 29, 6, 1, 12000),
+(16, 1, 11, 7, 1, 21000);
 
 -- --------------------------------------------------------
 
@@ -127,7 +141,7 @@ CREATE TABLE `consulta` (
 --
 
 INSERT INTO `consulta` (`Id`, `fk_asunto`, `fk_cliente`, `mensaje`, `titulo`, `nombre`, `empresa`, `telefono`, `correo`, `estado`) VALUES
-(1, 2, NULL, 'sadasdasdasdad', 'titulo', 'jose', '', '4654646', 'jh64@asga.com', 1),
+(1, 2, NULL, 'Como los puedo contactar para un evento de 200 personas', 'titulo', 'jose', '', '4654646', 'jh64@asga.com', 1),
 (2, 4, 5, 'lorem asdasdew asdwaasd', 'Consulta de la contabilidad', NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
@@ -144,6 +158,14 @@ CREATE TABLE `factura` (
   `total` int(50) NOT NULL,
   `iva` float DEFAULT 0.19
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`Id`, `fk_pedido`, `estado`, `tiempo`, `total`, `iva`) VALUES
+(5, 6, 'Pendiente', NULL, 101550, 0.19),
+(6, 7, 'Pendiente', NULL, 21000, 0.19);
 
 -- --------------------------------------------------------
 
@@ -182,6 +204,14 @@ CREATE TABLE `pedido` (
   `detalles` varchar(150) DEFAULT 'Sin detalles del pedido'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`Id`, `estado`, `codigo`, `tiempo`, `detalles`) VALUES
+(6, 'Pendiente', '663cfd9f5b4610.18623641', '2024-05-09 11:45:19', 'Sin detalles del pedido'),
+(7, 'Pendiente', '663cffe71ef525.04760316', '2024-05-09 11:55:03', 'Sin detalles del pedido');
+
 -- --------------------------------------------------------
 
 --
@@ -190,7 +220,7 @@ CREATE TABLE `pedido` (
 
 CREATE TABLE `producto` (
   `Id` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
   `descripcion` varchar(200) DEFAULT 'Sin descripcion',
   `precio` int(11) NOT NULL,
   `imagen` varchar(100) DEFAULT 'product_default.png',
@@ -205,13 +235,34 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`Id`, `nombre`, `descripcion`, `precio`, `imagen`, `existencias`, `cantidad_contenido`, `oferta`, `descuento`) VALUES
-(1, 'Yogur natural', 'Yogur natural descremado', 500, 'product_default.png', 1000, '100 g', b'0', 0),
-(2, 'Queso Mozarella', 'Queso mozzarella italiano', 3000, 'product_default.png', 500, '1 kg', b'0', 0),
-(3, 'Mermelada de fresa', 'Mermelada de fresa casera', 7000, 'product_default.png', 300, '250 g', b'1', 0),
-(4, 'Yogur de frutas', 'Yogur de frutas variadas', 1500, 'product_default.png', 800, '150 g', b'0', 0),
-(5, 'Queso Gouda', 'Queso gouda holandés', 4000, 'product_default.png', 700, '500 g', b'0', 0),
-(6, 'Mantequilla con sal', 'Mantequilla con sal añadida', 2500, 'product_default.png', 900, '200 g', b'0', 0.2),
-(7, 'Kumis light', 'Kumis light deslactosado', 2000, 'product_default.png', 1200, '200 ml', b'0', 0);
+(11, 'Garrafa de yogurt de melocotón', 'Garrafa de yogurt con sabor a melocotón de 4 litros', 21000, '663cf586dee821.00518943.jpeg', 100, '4L', b'0', 0),
+(12, 'Yogurt con masmelos', 'Yogurt personal con masmelos', 3000, '663ce63f5f9e48.72676955.jpeg', 100, '130ml', b'1', 0.05),
+(15, 'Combo yogurt  masmelos y gomas', 'Combo pague 4 lleve 5 de yogures de masmelos y gomas', 10000, '663ce83ed71ad3.81693946.jpeg', 100, '650ml', b'0', 0),
+(16, 'Yogurt con gomas', 'Yogurt personal con gomas', 3000, '663cf5a4a1e7b4.19713390.jpeg', 100, '130ml', b'0', 0),
+(17, 'Yogurt con cereal de arroz achocolatado', 'Yogurt personal acompañado con cereal de arroz achocolatado', 4000, '663ce95cd096a7.77272310.jpeg', 100, '170ml', b'1', 0.05),
+(18, 'Yogurt con hojuelas de maíz azucaradas', 'Yogurt personal acompañado con cereal de maíz azucaradas ', 4000, '663ce9d37e3a03.73850711.jpeg', 100, '170ml', b'1', 0.05),
+(19, 'Yogurt con aritos de maíz frutados', 'Yogurt personal acompañado con aritos de maíz frutados', 4000, '663cea5904db31.66782222.jpeg', 100, '170ml', b'0', 0),
+(20, 'Yogurt en bolsa personal de sabor a mora', 'Yogurt personal de mora en bolsa', 3000, '663ceace8d5af8.80455775.jpeg', 100, '150ml', b'0', 0),
+(21, 'Yogurt en bolsa personal de sabor a melocotón', 'Yogurt personal en bolsa de melocotón', 3000, '663ceb510a6513.43157001.jpeg', 100, '150ml', b'0', 0),
+(22, 'Yogurt en bolsa personal de sabor a guanábana', 'Yogurt personal en bolsa sabor guanábana', 3000, '663cebc6650f78.30782369.jpeg', 100, '150ml', b'1', 0.1),
+(23, 'Yogurt en bolsa personal de sabor a fresa', 'Yogurt personal de bolsa con sabor a fresa', 3000, '663cec08997e26.76109934.jpeg', 100, '150ml', b'0', 0),
+(24, 'Lonchería', 'Pack surtido de seis yogures personales en bolsa.\r\n', 18000, '663ceca5931765.08921196.jpeg', 100, '900ml', b'1', 0.22),
+(25, 'Yogurt garrafa sabor mora', 'Yogurt de garrafa de 4 litros sabor a mora', 21000, '663ced03c56b30.82732337.jpeg', 100, '4L', b'0', 0),
+(26, 'Yogurt garrafa sabor a fresa', 'Yogurt de garrafa de 4 litros sabor a fresa', 21000, '663ced4e21fdb4.94811332.jpeg', 100, '4L', b'0', 0),
+(27, 'Yogurt garrafa sabor guanábana', 'Yogurt de garrafa de 4 litros sabor a guanábana', 21000, '663ceda0a178b7.80581987.jpeg', 100, '4L', b'1', 0.3),
+(28, 'Chiquigurt 12 unidades', 'Pack de 12 chiquigurt surtido', 20000, '663cef1797bf50.97621297.jpeg', 100, '1.2L', b'1', 0.3),
+(29, 'Chiquigurt 6 unidades', 'Pack de 6 chiquigurt surtido', 12000, '663ceed40a16d0.89976494.jpeg', 100, '600ml', b'0', 0),
+(30, 'Chiquigurt de mora', 'Chiquigurt personal de mora', 2000, '663cef5c3d1ef2.74095722.jpeg', 100, '100ml', b'0', 0),
+(31, 'Chiquigurt de melocotón', 'Chiquigurt personal de melocotón', 2000, '663cefc0c689e2.99850983.jpeg', 100, '100ml', b'0', 0),
+(32, 'Chiquigurt de fresa', 'Chiquigurt de fresa', 2000, '663ceffd237211.17153446.jpeg', 100, '100ml', b'0', 0),
+(33, 'Queso con Bocadillo', 'Paquete de 4 unidades de queso con bocadillo', 6000, '663cf0b7d565f0.67894115.png', 100, '600g', b'0', 0),
+(34, 'Bolsa de yogures', 'Pack de 14 yogures personales en bolsa', 20000, '663cf19a9e5da2.14308308.png', 100, '2.1L', b'1', 0.2),
+(35, 'Kumis con cereal de 6 unidades', 'Pack de 6 unidades de kumis acompañados con cereal ', 18000, '663cf254d80392.96785271.png', 100, '680ml', b'1', 0.02),
+(36, 'Queso molido tipo costeño ', 'Queso molido fresco semigraso duro tipo costeño ', 6000, '663cf2ec0f4f60.66383997.png', 100, '1000g', b'0', 0),
+(37, 'Peritas', 'Queso tipo pera dividido en 6 unidades', 12000, '663cf377d28914.79754748.png', 100, '700g', b'0', 0),
+(38, 'Combo yogurt con masmelos y gomas paquete de 5 unidades', 'Paquete 5 unidades yogurt masmelos y gomitas', 15000, '663cf411f07118.82596152.png', 100, '650gr', b'1', 0.03),
+(39, 'Paquete de 5 unidades de gelatina', 'Pack de 5 gelatinas de sabores surtidos mas 1 de obsequio', 12000, '663cf4b091cfc7.17816855.png', 100, '1k', b'0', 0),
+(40, 'Paquete de 5 yogures personales en baso', 'Paquete de 5 yogures de baso personales con sabor variado ', 12500, '663cf5599b2f77.13412273.png', 100, '1L', b'1', 0.05);
 
 -- --------------------------------------------------------
 
@@ -230,12 +281,65 @@ CREATE TABLE `producto_categoria` (
 --
 
 INSERT INTO `producto_categoria` (`Id`, `fk_producto`, `fk_categoria`) VALUES
-(1, 1, 1),
-(2, 2, 3),
-(4, 4, 1),
-(5, 5, 3),
-(6, 6, 1),
-(7, 7, 1);
+(17, 12, 5),
+(18, 12, 7),
+(19, 15, 5),
+(20, 15, 7),
+(21, 15, 9),
+(30, 17, 5),
+(31, 17, 7),
+(32, 17, 9),
+(33, 18, 5),
+(34, 18, 7),
+(35, 18, 9),
+(36, 19, 5),
+(37, 19, 7),
+(38, 19, 9),
+(39, 20, 5),
+(40, 20, 9),
+(41, 21, 5),
+(42, 21, 9),
+(43, 22, 5),
+(44, 22, 9),
+(45, 23, 5),
+(46, 23, 9),
+(47, 24, 5),
+(48, 24, 9),
+(49, 25, 5),
+(50, 26, 5),
+(51, 27, 5),
+(55, 29, 5),
+(56, 29, 6),
+(57, 29, 9),
+(61, 28, 5),
+(62, 28, 6),
+(63, 28, 9),
+(64, 30, 5),
+(65, 30, 6),
+(66, 30, 9),
+(67, 31, 5),
+(68, 31, 6),
+(69, 31, 9),
+(70, 32, 5),
+(71, 32, 6),
+(72, 32, 9),
+(73, 33, 3),
+(74, 34, 5),
+(75, 34, 9),
+(76, 35, 5),
+(77, 35, 7),
+(78, 36, 3),
+(79, 37, 3),
+(80, 38, 5),
+(81, 38, 7),
+(82, 39, 8),
+(83, 39, 9),
+(84, 40, 5),
+(85, 40, 9),
+(86, 11, 5),
+(87, 16, 5),
+(88, 16, 7),
+(89, 16, 9);
 
 -- --------------------------------------------------------
 
@@ -428,19 +532,19 @@ ALTER TABLE `asunto`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `comentario`
 --
 ALTER TABLE `comentario`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `consulta`
@@ -452,7 +556,7 @@ ALTER TABLE `consulta`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `identificacion`
@@ -464,19 +568,19 @@ ALTER TABLE `identificacion`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `producto_categoria`
 --
 ALTER TABLE `producto_categoria`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`

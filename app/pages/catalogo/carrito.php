@@ -107,9 +107,9 @@ if (isset($_SESSION['auth']) == true) {
                         <h2 class="text-lg font-bold mb-2"><?php echo $producto['nombre']; ?></h2>
                         <p class="text-gray-700 mb-2">Precio: $
                             <?php if ($producto['descuento'] > 0.0) {
-                                echo ($producto['precio'] - ($producto['precio'] * $producto['descuento']));
+                                echo number_format(($producto['precio'] - ($producto['precio'] * $producto['descuento'])));
                             } else {
-                                echo $producto['precio'];
+                                echo number_format($producto['precio']);
                             } ?>
                         </p>
                     </div>

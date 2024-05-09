@@ -41,7 +41,7 @@ if (isset($_GET['producto'])) {
                 <h1 class="text-6xl font-bold mb-4"><?php echo ($producto['Nombre']); ?></h1>
                 <p class="text-2xl mt-8"><b>Calificación: </b><?php if ($Calificacion['can'] > 0) {
                                                                     echo number_format($Calificacion['calificacionGeneral'], 1);
-                                                                } {
+                                                                } else {
                                                                     echo ("No hay calificación ");
                                                                 } ?></p>
                 <p class="px-4 m-8">
