@@ -49,15 +49,15 @@ if (isset($_SESSION['auth'])) {
 
                 <!-- Nuestra línea de Kumis -->
                 <div class="bg-gray-100 p-8 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">Kumis</h3>
-                    <p class="mb-4">Los más variados productos de lácteos.</p>
-                    <a href="<?php echo ($URL . "catalogo/?buscar=kumis"); ?>" class="block mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg text-center">Ver Kumis</a>
+                    <h3 class="text-xl font-semibold mb-4">Bebidas personales</h3>
+                    <p class="mb-4">Bebidas para los grandes y chiquillos.</p>
+                    <a href="<?php echo ($URL . "catalogo/?buscar=personal"); ?>" class="block mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg text-center">Ver Kumis</a>
                 </div>
 
                 <!-- Nuestra línea de Mantequilla -->
                 <div class="bg-gray-100 p-8 rounded-lg shadow-lg">
-                    <h3 class="text-xl font-semibold mb-4">Mantequillas</h3>
-                    <p class="mb-4">Mantequilla tradicional ideal para su mesa y la industria.</p>
+                    <h3 class="text-xl font-semibold mb-4">Cereales</h3>
+                    <p class="mb-4">Lo mejor de lacteos superior combinado con cereal de varios sabores.</p>
                     <a href="<?php echo ($URL . "catalogo/?buscar=mantequilla"); ?>" class="block mt-4 bg-red-500 text-white font-semibold py-2 px-4 rounded-lg text-center">Ver Mantequillas</a>
                 </div>
 

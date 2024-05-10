@@ -131,9 +131,9 @@ include("../../templates/header.php");
                                                                                             echo "checked";
                                                                                         } ?>>
                     <span>Es una oferta</span>
-                </label>
+                </label><br>
                 <label for="of2" class="inline-flex items-center">
-                    <input type="radio" id="of2" name="oferta" value="0" class="mr-2" <?php if ($oferta == 1) {
+                    <input type="radio" id="of2" name="oferta" value="0" class="mr-2" <?php if ($oferta == 1 || (isset($_GET['new']) && $_GET['new'] == "newPro")) {
                                                                                             echo "checked";
                                                                                         } ?>>
                     <span>No es una oferta</span>

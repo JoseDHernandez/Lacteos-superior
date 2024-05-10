@@ -23,8 +23,8 @@ $indice_inicio = ($pagina_actual - 1) * $resultados_por_pagina;
 $Buscar = isset($_GET['buscar']) ? $_GET['buscar'] : "";
 
 // Inicializar las variables de los filtros
-$categoria = isset($_GET['categoria']) ? $_GET['categoria'] : "";
-$precio = isset($_GET['precio']) ? $_GET['precio'] : 0;
+$categoria = isset($_GET['categoria']) && $_GET['categoria'] != 0 ? $_GET['categoria'] : "";
+$precio = isset($_GET['precio']) && $_GET['precio'] != 0 ? $_GET['precio'] : 0;
 // Consulta SQL para obtener los productos paginados
 $sql = "SELECT p.Id as 'Id', p.nombre as 'Nombre', p.precio as 'Precio', p.imagen as 'Img', GROUP_CONCAT(c.nombre) as 'categorias', 
 p.cantidad_contenido as 'cantidad',p.oferta as'oferta',p.descuento as 'desc' FROM producto_categoria INNER JOIN producto p ON fk_producto=p.Id 
@@ -101,7 +101,7 @@ if (count($Productos) > 0) {
                     <select id="categorias" name="categoria" class="w-80 text-lg border p-2 rounded">
                         <option value="0">Seleccione</option>
                         <?php foreach ($Categorias as $Categoria) { ?>
-                            <option value="<?php $Categoria['Id'] ?>"><?php echo ($Categoria['nombre']) ?></option>
+                            <option value="<?php echo $Categoria['nombre'] ?>"><?php echo ($Categoria['nombre']) ?></option>
                         <?php } ?>
                     </select>
                 </span>
@@ -110,7 +110,7 @@ if (count($Productos) > 0) {
                     <select id="precios" name="precio" class="w-80 text-lg border p-2 rounded">
                         <option value="0">Seleccione</option>
                         <option value="1"><?php echo ($Precios[0]['0']) ?></option>
-                        <option value="1"><?php echo ($Precios[0]['1']) ?></option>
+                        <option value="2"><?php echo ($Precios[0]['1']) ?></option>
                     </select>
                 </span>
             </div>
@@ -120,10 +120,10 @@ if (count($Productos) > 0) {
         <?php foreach ($Productos as $Producto) { ?>
             <div class="max-w-96 h-[35em]  rounded-lg shadow-lg overflow-hidden <?php echo ($Producto['oferta'] == 1) ? "bg-orange-400" : "bg-white"; ?>">
                 <div class="bg-white flex justify-center w-full h-[22em] overflow-hidden">
-                    <img class="object-cover object-center rounded-lg" src="<?php echo ($URL_IMG . $Producto['Img']); ?>" alt="Imagen del producto">
+                    <img class=" rounded-lg" src="<?php echo ($URL_IMG . $Producto['Img']); ?>" alt="Imagen del producto">
                 </div>
                 <div class="p-4">
-                    <h2 class="text-xl font-semibold text-gray-800 text-center"><?php echo ($Producto['Nombre'] . " - " . $Producto['cantidad']) ?></h2>
+                    <h2 class="text-xl font-semibold text-gray-800  h-14 overflow-hidden text-center"><?php echo ($Producto['Nombre'] . " - " . $Producto['cantidad']) ?></h2>
                     <p class="px-4 text-center mt-2 mb-8">
                         <?php if ($Producto['desc'] > 0.0) { ?>
                             <span class="text-gray-900 line-through text-ms font-semibold ">
