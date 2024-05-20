@@ -30,7 +30,7 @@ if (isset($_SESSION['auth'])) {
 
 <body>
     <header>
-        <nav class="bg-customRed py-4">
+        <nav class="bg-customRed py-4 lg:py-2">
             <div class="container mx-auto flex justify-between items-center">
                 <a href="<?php echo $URL_HOST; ?>/" class="flex items-center text-white text-lg font-bold">
                     <img src="<?php echo $URL_IMG; ?>logo.png" alt="Lacteos superior" class="h-12 mr-2" />

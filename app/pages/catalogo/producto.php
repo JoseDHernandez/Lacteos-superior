@@ -31,20 +31,20 @@ if (isset($_GET['producto'])) {
 
     <div class="container mx-auto my-16">
         <!-- Mostrar información del producto -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid lg:max-h-screen grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Imagen del producto -->
-            <div>
-                <img src="<?php echo $URL_IMG . "images/" . $producto['Img']; ?>" alt="<?php echo $producto['Nombre']; ?>" class="w-[40em] mt-4 ml-4 rounded-xl">
+            <div class="flex justify-center items-center verflow-hidden">
+                <img class="w-[40em] lg:w-[30em]  lg:mt-2 mt-4 ml-4 rounded-xl" src="<?php echo $URL_IMG . "images/" . $producto['Img']; ?>" alt="<?php echo $producto['Nombre']; ?>">
             </div>
             <!-- Detalles del producto -->
             <div>
-                <h1 class="text-6xl font-bold mb-4"><?php echo ($producto['Nombre']); ?></h1>
-                <p class="text-2xl mt-8"><b>Calificación: </b><?php if ($Calificacion['can'] > 0) {
-                                                                    echo number_format($Calificacion['calificacionGeneral'], 1);
-                                                                } else {
-                                                                    echo ("No hay calificación ");
-                                                                } ?></p>
-                <p class="px-4 m-8">
+                <h1 class="text-6xl lg:text-3xl font-bold mb-4"><?php echo ($producto['Nombre']); ?></h1>
+                <p class="text-2xl lg:text-xl mt-8"><b>Calificación: </b><?php if ($Calificacion['can'] > 0) {
+                                                                                echo number_format($Calificacion['calificacionGeneral'], 1);
+                                                                            } else {
+                                                                                echo ("No hay calificación ");
+                                                                            } ?></p>
+                <p class="px-4 m-8 lg:px-2 lg:m-4">
                     <?php
                     if ($producto['desc'] > 0.0) {
                     ?>
@@ -64,21 +64,21 @@ if (isset($_GET['producto'])) {
                     <?php }
                     ?>
                 </p>
-                <p class="text-xl mb-6 ">Cantidad de contenido: <?php echo $producto['cantidad']; ?></p>
-                <p class="text-xl mb-6 ">Existencias: <?php echo $producto['existencias']; ?></p>
-                <p class="text-xl mb-6 ">Categorias: <?php echo $producto['categorias']; ?></p>
+                <p class="text-xl lg:text-lg lg:mb-3 mb-6 ">Cantidad de contenido: <?php echo $producto['cantidad']; ?></p>
+                <p class="text-xl mb-6 lg:text-lg lg:mb-3 ">Existencias: <?php echo $producto['existencias']; ?></p>
+                <p class="text-xl mb-6 lg:text-lg lg:mb-3 ">Categorias: <?php echo $producto['categorias']; ?></p>
                 <hr class="mb-6">
-                <p class="text-xl my-10 "><?php echo $producto['descripcion']; ?></p>
+                <p class="text-xl lg:text-lg lg:my-5 my-10 "><?php echo $producto['descripcion']; ?></p>
                 <hr class="mb-6">
                 <!-- Agregar al carrito -->
                 <form action="carrito.php" method="POST" id="agregar-al-carrito">
                     <input type="hidden" name="producto" value="<?php echo $producto['Id']; ?>">
                     <div class="flex items-center mb-4">
-                        <label for="cantidad" class="mr-2 text-3xl">Cantidad: &nbsp;</label>
+                        <label for="cantidad" class="mr-2 text-3xl lg:text-2xl">Cantidad: &nbsp;</label>
                         <div class="flex">
-                            <button type="button" class="bg-red-500 text-bold text-xl  px-3 py-1 rounded-l focus:outline-none" onclick="decrementarCantidad()">-</button>
+                            <button type="button" class="bg-red-500 text-bold text-xl lg:px-2 px-3 py-1 rounded-l focus:outline-none" onclick="decrementarCantidad()">-</button>
                             <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="999" class="w-16 px-3 py-2 border border-gray-300 rounded-none focus:outline-none text-center">
-                            <button type="button" class="bg-red-500 text-bold text-xl  px-3 py-1 rounded-r focus:outline-none" onclick="incrementarCantidad()">+</button>
+                            <button type="button" class="bg-red-500 text-bold text-xl lg:px-2 px-3 py-1 rounded-r focus:outline-none" onclick="incrementarCantidad()">+</button>
                         </div>
                     </div>
                     <button type="submit" class="my-8 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Agregar al carrito</button>
@@ -94,7 +94,7 @@ if (isset($_GET['producto'])) {
                     <input type="hidden" name="id" value="<?php echo $producto['Id']; ?>">
                     <div class="col-span-3">
                         <label for="comentario" class="block text-lg font-semibold mb-2">Comentario:</label>
-                        <textarea id="comentario" name="mensaje" class="w-full h-24 border border-gray-300 rounded-lg p-4 mb-4" placeholder="Escribe tu comentario aquí" required></textarea>
+                        <textarea id="comentario" name="mensaje" class="w-full h-24 border border-gray-300 rounded-lg p-4 mb-4 resize-none" placeholder="Escribe tu comentario aquí" required></textarea>
                     </div>
                     <div>
                         <label for="calificacion" class="block text-lg font-semibold mb-2">Calificación (0.0 - 5.0):</label>
@@ -111,13 +111,20 @@ if (isset($_GET['producto'])) {
             <?php if (!empty($Comentarios)) : ?>
                 <h2 class="text-2xl font-semibold my-4">Comentarios</h2>
                 <?php foreach ($Comentarios as $comentario) : ?>
-                    <div class="border border-gray-300 p-4 my-4 rounded-lg">
-                        <p class="text-lg mb-2">
-                            <strong><?php echo $comentario['nombre'] ?></strong>
-                            <span class="ml-4 text-gray-600"><?php echo $comentario['tiempo'] ?></span>
-                        </p>
-                        <p class="text-gray-600"><b>Calificación: </b><?php echo $comentario['calificacion'] ?></p>
-                        <p class="text-gray-700 mx-4 my-2"><?php echo $comentario['mensaje'] ?></p>
+                    <div class="border border-gray-300 p-4 my-4 rounded-lg grid grid-cols-9">
+                        <div class="col-span-8">
+                            <p class="text-lg mb-2">
+                                <strong><?php echo $comentario['nombre'] ?></strong>
+                                <span class="ml-4 text-gray-600"><?php echo $comentario['tiempo'] ?></span>
+                            </p>
+                            <p class="text-gray-600"><b>Calificación: </b><?php echo $comentario['calificacion'] ?></p>
+                            <p class="text-gray-700 mx-4 my-2"><?php echo $comentario['mensaje'] ?></p>
+                        </div>
+                        <?php if (isset($_SESSION['auth']) && $_SESSION['Rol'] == 2) : ?>
+                            <div class="flex justify-center items-center">
+                                <a class="bg-red-500 h-11 text-white text-xl rounded py-2 px-4 ml-8" href="#">Eliminar</a>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
                 <?php if (count($Comentarios) == 20 && !isset($_GET['limit'])) : ?>

@@ -124,15 +124,15 @@ if (count($Productos) > 0) {
                 </div>
                 <div class="p-4">
                     <h2 class="text-xl font-semibold text-gray-800  h-14 overflow-hidden text-center"><?php echo ($Producto['Nombre'] . " - " . $Producto['cantidad']) ?></h2>
-                    <p class="px-4 text-center mt-2 mb-8">
+                    <p class="px-4 text-center mt-2 mb-8  w-full lg:h-10 ">
                         <?php if ($Producto['desc'] > 0.0) { ?>
-                            <span class="text-gray-900 line-through text-ms font-semibold ">
+                            <span class="text-gray-900 line-through text-ms lg:text-sx font-semibold ">
                                 <?php echo ("$" . number_format($Producto['Precio'])); ?>
                             </span>
-                            <span class="text-gray-900  text-2xl font-semibold ml-2 mr-4">
+                            <span class="text-gray-900  text-2xl lg:text-xl font-semibold ml-2 mr-4">
                                 <?php echo ("$" . number_format($Producto['Precio'] - ($Producto['Precio'] * $Producto['desc']))); ?>
                             </span>
-                            <span class="text-red-900  text-2xl font-semibold ">
+                            <span class="text-red-900  text-2xl lg:text-xl font-semibold ">
                                 <?php echo ("   " . ($Producto['desc'] * 100) . "%"); ?>
                             </span>
                         <?php } else { ?>
@@ -142,8 +142,8 @@ if (count($Productos) > 0) {
                         <?php } ?>
                     </p>
                     <div class="mt-4 flex justify-center">
-                        <button onclick="agregarCarrito(<?php echo ($Producto['Id']) ?>)" class="bg-blue-400  px-4 py-2 rounded-md hover:bg-blue-500 ml-4">Agregar al carrito</button>
-                        <a class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 ml-4" href="producto.php?producto=<?php echo ($Producto['Id']) ?>">Ver producto</a>
+                        <button onclick="agregarCarrito(<?php echo ($Producto['Id']) ?>)" class="bg-blue-400  px-4 py-2 rounded-md hover:bg-blue-500 ml-4">Agregar</button>
+                        <a class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 ml-4" href="producto.php?producto=<?php echo ($Producto['Id']) ?>">Ver</a>
                     </div>
                 </div>
             </div>

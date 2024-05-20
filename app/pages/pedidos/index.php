@@ -125,7 +125,7 @@ if ($_SESSION['auth'] && $_SESSION['Rol'] == 2 && $pedido_id == null) {
     if ($_SESSION['Rol'] !== 2) {
         include('../../DATABASE.php');
         $cliente_id = isset($_POST['id_cliente']) ? $_POST['id_cliente'] : '';
-        $sql = "SELECT ROUND(f.total* f.iva,0) AS 'total',p.Id as 'Id', p.estado as 'estP', p.codigo as 'codigo', u.nombre as 'nombre', p.tiempo as 'timP', f.tiempo as 'timF',f.estado as 'estF', detalles
+        $sql = "SELECT DISTINCT ROUND(f.total* f.iva,0) AS 'total', p.Id as 'Id', p.estado as 'estP', p.codigo as 'codigo', u.nombre as 'nombre', p.tiempo as 'timP', f.tiempo as 'timF',f.estado as 'estF', detalles
     FROM compra c
     INNER JOIN pedido p ON c.fk_pedido = p.Id
     inner join usuario u on c.fk_cliente = u.Id
@@ -161,7 +161,7 @@ if ($_SESSION['auth'] && $_SESSION['Rol'] == 2 && $pedido_id == null) {
                             <?php foreach ($pedidos as $pedido) : ?>
                                 <tr>
                                     <td class="border border-gray-400 p-2"><?php echo  $pedido['Id']; ?></td>
-                                    <td class="border border-gray-400 p-2"><?php echo $pedido['total']; ?></td>
+                                    <td class="border border-gray-400 p-2"><?php echo "$" . number_format($pedido['total']); ?></td>
                                     <td class="border border-gray-400 p-2"><?php echo $pedido['estP']; ?></td>
                                     <td class="border border-gray-400 p-2"><?php echo $pedido['codigo']; ?></td>
                                     <td class="border border-gray-400 p-2"><?php echo $pedido['timP']; ?></td>
@@ -217,7 +217,7 @@ if ($_SESSION['auth'] && $_SESSION['Rol'] == 2 && $pedido_id == null) {
             $stmt_productos->bindParam(':ids', $pedido_id);
             $stmt_productos->execute();
             $productos = $stmt_productos->fetchAll(PDO::FETCH_ASSOC);
-            $id = $_SESSION['Rol'] == 2 ? $productos[0]['cli'] : $_SESSION['id'];
+            $id = $_SESSION['Rol'] == 2 ? $productos[0]['cli'] : $_SESSION['Id'];
             //validar
             if ($_SESSION['Rol'] !== 2 && $_SESSION['Id'] !== $id) {
                 header('./');

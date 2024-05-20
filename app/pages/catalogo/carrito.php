@@ -99,12 +99,12 @@ if (isset($_SESSION['auth']) == true) {
             foreach ($productos as $producto) : ?>
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md flex items-center">
                     <!-- Imagen del producto -->
-                    <div class="w-1/4 mr-4">
+                    <div class="w-1/4 mr-4 overflow-hidden bg-white">
                         <img src="<?php echo $URL_IMG . "images/" . $producto['imagen']; ?>" alt="<?php echo $producto['nombre']; ?>" class="w-full">
                     </div>
                     <!-- Información del producto -->
                     <div class="w-1/2 mr-4">
-                        <h2 class="text-lg font-bold mb-2"><?php echo $producto['nombre']; ?></h2>
+                        <h2 class="text-lg lg:text-sm font-bold mb-2"><?php echo $producto['nombre']; ?></h2>
                         <p class="text-gray-700 mb-2">Precio: $
                             <?php if ($producto['descuento'] > 0.0) {
                                 echo number_format(($producto['precio'] - ($producto['precio'] * $producto['descuento'])));
@@ -118,7 +118,7 @@ if (isset($_SESSION['auth']) == true) {
                         <form action="carrito.php" method="POST" id="agregar-al-carrito">
                             <input type="hidden" name="producto" value="<?php echo $producto['Id']; ?>">
                             <div class="flex items-center mb-2">
-                                <button type="button" class="bg-red-500 text-bold text-xl  px-2 py-1 rounded-l focus:outline-none" onclick="decrementarCantidad(<?php echo $producto['Id']; ?>)">-</button>
+                                <button type="button" class="bg-red-500 text-bold text-xl lg:px-1 lg:text-lg px-2 py-1 rounded-l focus:outline-none" onclick="decrementarCantidad(<?php echo $producto['Id']; ?>)">-</button>
                                 <?php
                                 $indice = buscarProductoEnCarrito($producto['Id'], $_SESSION['carrito']);
                                 $cantidad = 1;
@@ -126,11 +126,11 @@ if (isset($_SESSION['auth']) == true) {
                                     $cantidad = $_SESSION['carrito'][$indice][1];
                                 }
                                 ?>
-                                <input type="number" id="cantidad<?php echo $producto['Id']; ?>" name="cantidad" value="<?php echo ($cantidad) ?>" min="1" max="999" class="w-16 px-3 py-2 border border-gray-300 rounded-none focus:outline-none text-center">
-                                <button type="button" class="bg-red-500 text-bold text-xl  px-2 py-1 rounded-r focus:outline-none" onclick="incrementarCantidad(<?php echo $producto['Id']; ?>)">+</button>
+                                <input type="number" id="cantidad<?php echo $producto['Id']; ?>" name="cantidad" value="<?php echo ($cantidad) ?>" min="1" max="999" class="w-16 lg:px-2 lg:text-xs px-3 py-2 border border-gray-300 rounded-none focus:outline-none text-center">
+                                <button type="button" class="bg-red-500 text-bold text-xl lg:text-lg  lg:px-1 px-2 py-1 rounded-r focus:outline-none" onclick="incrementarCantidad(<?php echo $producto['Id']; ?>)">+</button>
                             </div>
-                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">Actualizar</button>
-                            <a href="carrito.php?eliminar=<?php echo $producto['Id']; ?>" class="float-right bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">X</a>
+                            <button type="submit" class="bg-red-500 text-white lg:text-sm  lg:px-1 px-2 py-1 rounded hover:bg-red-600">Actualizar</button>
+                            <a href="carrito.php?eliminar=<?php echo $producto['Id']; ?>" class="float-right bg-red-500 lg:text-sm lg:px-1 text-white px-2 py-1 rounded hover:bg-red-600">X</a>
                         </form>
                     </div>
                 </div>
