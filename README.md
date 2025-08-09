@@ -1,6 +1,6 @@
 # Mockup for Lácteos Superior
 
-This project is a virtual catalog for "Lácteos Superior," a brand of Inversiones Fasulac Ltda. The mockup was created to analyze and address some of the brand's needs. It includes features for managing queries, orders, and products, and is programmed in PHP, JavaScript, HTML, and Tailwind CSS. Initially, the database was in Oracle SQL but has been migrated to MySQL.
+This project is a virtual catalog for "Lácteos Superior" a brand of Inversiones Fasulac Ltda. The mockup was created to analyze and address some of the brand's needs. It includes features for managing queries, orders, and products, and is programmed in PHP, JavaScript, HTML, and Tailwind CSS. Initially, the database was in Oracle SQL but has been migrated to MySQL.
 
 **Disclamer**: All photos, names, logos referring to "Lácteos Superior" are property of Inversiones Fasulac Ltda and the other trademark logos are the owners of their own logos. "Lácteos Superior" is a brand of Inversiones Faulac Ltda.
 
